@@ -1,0 +1,211 @@
+/* Global Resets & Typeface */
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap');
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Pixelify Sans', 'Courier New', monospace;
+  font-family: 'MS Sans Serif', 'Segoe UI', sans-serif;
+  background-color: #2b2b2b;
+  /* Dark wall/desk background */
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+/* PC Container - Centers the monitor */
+.pc-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  perspective: 1000px;
+}
+
+/* Monitor Frame (Beige Plastic) */
+.monitor-frame {
+  background-color: #dcdcdc;
+  padding: 30px 30px 50px 30px;
+  /* Top, Right, Bottom (chin), Left */
+  border-radius: 20px;
+  box-shadow:
+    inset 0 0 10px rgba(255, 255, 255, 0.5),
+    /* Highlights */
+    inset 0 0 20px rgba(0, 0, 0, 0.1),
+    /* Plastic feel */
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    /* Monitor shadow */
+    0 0 0 4px #c0c0c0;
+  /* Outer ridge */
+  position: relative;
+  width: 800px;
+  /* Fixed "small PC" size */
+  max-width: 90vw;
+  aspect-ratio: 4/3;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+/* Inner Black Bezel */
+.monitor-bezel {
+  background-color: #111;
+  padding: 15px;
+  border-radius: 4px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+/* The actual Desktop screen */
+.desktop {
+  background-color: #008080;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* Screen curvature/glow effect */
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Branding Text */
+.monitor-brand {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Pixelify Sans', monospace;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #888;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  letter-spacing: 2px;
+}
+
+/* Power Button & LED */
+.monitor-controls {
+  position: absolute;
+  bottom: 15px;
+  right: 30px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.power-btn {
+  width: 20px;
+  height: 20px;
+  background: #333;
+  border-radius: 50%;
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.8),
+    0 1px 0 rgba(255, 255, 255, 0.5);
+  position: relative;
+  cursor: pointer;
+}
+
+.power-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background-color: #0f0;
+  /* Green LED */
+  border-radius: 50%;
+  box-shadow: 0 0 5px #0f0;
+}
+
+/* Monitor Stand */
+.monitor-stand {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+  margin-top: -10px;
+  /* Overlap slightly */
+}
+
+.stand-connect {
+  width: 150px;
+  height: 60px;
+  background-color: #d0d0d0;
+  box-shadow:
+    inset 0 0 10px rgba(0, 0, 0, 0.2),
+    inset 5px 0 10px rgba(255, 255, 255, 0.4);
+}
+
+.stand-base {
+  width: 300px;
+  height: 40px;
+  background-color: #dcdcdc;
+  border-radius: 10px 10px 40% 40%;
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.4),
+    inset 0 2px 5px rgba(255, 255, 255, 0.5);
+}
+
+/* Existing Styles Restored Below */
+
+/* Desktop Icon Grid */
+.desktop-icons {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  padding: 10px;
+  height: 100%;
+  /* Fill available space */
+  gap: 20px;
+  z-index: 5;
+}
+
+/* CRT Overlay Effect */
+.crt-overlay {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%,
+      rgba(0, 0, 0, 0.25) 50%);
+  background-size: 100% 4px;
+  /* Scanline spacing */
+  z-index: 9999;
+  pointer-events: none;
+  /* Click through */
+  opacity: 0.3;
+}
+
+/* Helper for content */
+.window-content-area {
+  padding: 1rem;
+  font-size: 14px;
+}
+
+/* Responsive adjustments for really "small" screens */
+@media (max-width: 850px) {
+  .monitor-frame {
+    width: 95vw;
+    height: auto;
+    aspect-ratio: auto;
+    /* Allow flexible height on mobile */
+    min-height: 60vh;
+  }
+}
