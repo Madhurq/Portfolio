@@ -3,6 +3,8 @@ import './App.css';
 import { useWindowManager } from './hooks/useWindowManager';
 import Taskbar from './components/Taskbar';
 import DesktopIcon from './components/DesktopIcon';
+import DraggableDesktopIcon from './components/DraggableDesktopIcon';
+import MobileLayout from './components/MobileLayout';
 import WindowFrame from './components/WindowFrame';
 import AboutMe from './content/AboutMe';
 import Projects from './content/Projects';
@@ -36,6 +38,32 @@ function App() {
     handleOpenAbout();
   }, []); // Run once on mount
 
+  // Detect mobile/small screen
+  const [isMobile, setIsMobile] = React.useState(window.matchMedia("(max-height: 550px)").matches);
+
+  React.useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-height: 550px)");
+    const handler = (e) => setIsMobile(e.matches);
+    mediaQuery.addEventListener("change", handler);
+    return () => mediaQuery.removeEventListener("change", handler);
+  }, []);
+
+  if (isMobile) {
+    return (
+      <MobileLayout
+        windows={windows}
+        activeWindowId={activeWindowId}
+        onCloseWindow={closeWindow}
+        onOpenWindow={(id) => {
+          // Map simple IDs to the full openWindow calls
+          if (id === 'about') handleOpenAbout();
+          if (id === 'projects') handleOpenProjects();
+          if (id === 'contact') handleOpenContact();
+        }}
+      />
+    );
+  }
+
   return (
     <div className="pc-container">
       <div className="monitor-frame">
@@ -44,25 +72,29 @@ function App() {
             <div className="crt-overlay" />
 
             <div className="desktop-icons">
-              <DesktopIcon
+              <DraggableDesktopIcon
                 label="My Computer"
                 icon="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png"
                 onDoubleClick={handleOpenAbout}
+                defaultPosition={{ x: 20, y: 20 }}
               />
-              <DesktopIcon
+              <DraggableDesktopIcon
                 label="My Projects"
                 icon="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png"
                 onDoubleClick={handleOpenProjects}
+                defaultPosition={{ x: 20, y: 120 }}
               />
-              <DesktopIcon
+              <DraggableDesktopIcon
                 label="Contact Me"
                 icon="https://win98icons.alexmeub.com/icons/png/outlook_express-4.png"
                 onDoubleClick={handleOpenContact}
+                defaultPosition={{ x: 20, y: 220 }}
               />
-              <DesktopIcon
+              <DraggableDesktopIcon
                 label="Recycle Bin"
                 icon="https://win98icons.alexmeub.com/icons/png/recycle_bin_empty-4.png"
                 onDoubleClick={() => alert("It's empty!")}
+                defaultPosition={{ x: 20, y: 320 }}
               />
             </div>
 
