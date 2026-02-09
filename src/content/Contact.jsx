@@ -5,7 +5,7 @@ const Contact = () => {
         <div style={{ padding: '10px' }}>
             <div className="field-row-stacked" style={{ width: '100%' }}>
                 <label htmlFor="email">To:</label>
-                <input id="email" type="text" value="me@example.com" readOnly style={{ width: '100%' }} />
+                <input id="email" type="text" value="madhur.mu5@gmail.com" style={{ width: '100%' }} />
             </div>
             <div className="field-row-stacked" style={{ width: '100%' }}>
                 <label htmlFor="subject">Subject:</label>

@@ -10,10 +10,10 @@ const AboutMe = () => {
                     style={{ width: '64px', height: '64px', border: '2px solid gray' }}
                 />
                 <div>
-                    <h3 style={{ marginTop: 0 }}>Welcome to My Retro Portfolio!</h3>
+                    <h3 style={{ marginTop: 0 }}>Welcome to My Portfolio!</h3>
                     <p>
-                        Hi! I'm a developer who loves the retro aesthetic of the 90s.
-                        This site is built with <strong>React</strong> and <strong>98.css</strong>.
+                        Hi! I'm Madhur Mundra, a Software Developer living in India.
+                        This site was built using <strong>React</strong> and <strong>98.css</strong>.
                     </p>
                     <p>
                         I specialize in building interactive web applications with a unique touch.
@@ -22,15 +22,35 @@ const AboutMe = () => {
                 </div>
             </div>
 
-            <fieldset style={{ marginTop: '10px' }}>
-                <legend>Skills</legend>
-                <ul style={{ listStyleType: 'square' }}>
-                    <li>JavaScript / TypeScript</li>
-                    <li>React.js / Next.js</li>
-                    <li>Node.js / Express</li>
-                    <li>Retro UI Design</li>
-                </ul>
-            </fieldset>
+            <div style={{ display: 'flex', gap: '20px', marginTop: '10px' }}>
+                <fieldset style={{ flex: 1 }}>
+                    <legend>Skills:-</legend>
+                    <ul style={{ listStyleType: 'square', paddingLeft: '20px' }}>
+                        <li>Java</li>
+                        <li>Spring Boot</li>
+                        <li>JavaScript</li>
+                        <li>MongoDB/PostgreSQL/MySQL</li>
+                        <li>React.js</li>
+                        <li>Node.js</li>
+                        <li>Express.js</li>
+                        <li>Python</li>
+                        <li>C++</li>
+                        <li>Git</li>
+                    </ul>
+                </fieldset>
+                <fieldset style={{ flex: 1 }}>
+                    <legend>Core:-</legend>
+                    <ul style={{ listStyleType: 'square', paddingLeft: '20px' }}>
+                        <li>DBMS</li>
+                        <li>DSA</li>
+                        <li>OS</li>
+                        <li>CN</li>
+                        <li>Algorithms</li>
+                        <li>TOC</li>
+                    </ul>
+                </fieldset>
+            </div>
+
         </div>
     );
 };
