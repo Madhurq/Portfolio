@@ -69,10 +69,10 @@ function App() {
   }, []); // Run once on mount
 
   // Detect mobile/small screen
-  const [isMobile, setIsMobile] = React.useState(window.matchMedia("(max-width: 1100px)").matches);
+  const [isMobile, setIsMobile] = React.useState(window.matchMedia("(max-width: 768px)").matches);
 
   React.useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 1100px)");
+    const mediaQuery = window.matchMedia("(max-width: 768px)");
     const handler = (e) => setIsMobile(e.matches);
     mediaQuery.addEventListener("change", handler);
     return () => mediaQuery.removeEventListener("change", handler);
