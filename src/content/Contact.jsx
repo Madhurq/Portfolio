@@ -1,24 +1,85 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { staggerChildren: 0.1, delayChildren: 0.05 },
+    },
+};
+
+const itemVariants = {
+    hidden: { opacity: 0, x: -15 },
+    visible: {
+        opacity: 1,
+        x: 0,
+        transition: { duration: 0.3, ease: 'easeOut' },
+    },
+};
+
+const socials = [
+    {
+        name: 'Gmail',
+        desc: 'madhur.mu5@gmail.com',
+        href: 'mailto:madhur.mu5@gmail.com',
+        icon: 'https://win98icons.alexmeub.com/icons/png/outlook_express-4.png',
+    },
+    {
+        name: 'GitHub',
+        desc: 'github.com/Madhurq',
+        href: 'https://github.com/Madhurq',
+        icon: 'https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png',
+    },
+    {
+        name: 'LinkedIn',
+        desc: 'linkedin.com/in/madhur-mundra-867bb2277',
+        href: 'https://www.linkedin.com/in/madhur-mundra-867bb2277',
+        icon: 'https://win98icons.alexmeub.com/icons/png/msn1-2.png',
+    },
+    {
+        name: 'Resume',
+        desc: 'Download my resume (PDF)',
+        href: '/Resume.pdf',
+        icon: 'https://win98icons.alexmeub.com/icons/png/write_wordpad-0.png',
+        download: true,
+    },
+];
 
 const Contact = () => {
     return (
-        <div style={{ padding: '10px' }}>
-            <div className="field-row-stacked" style={{ width: '100%' }}>
-                <label htmlFor="email">To:</label>
-                <input id="email" type="text" value="madhur.mu5@gmail.com" style={{ width: '100%' }} />
+        <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            style={{ padding: '10px' }}
+        >
+            <motion.p variants={itemVariants} style={{ margin: '0 0 10px 0', fontSize: '13px' }}>
+                Connect with me through any of the links below:
+            </motion.p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {socials.map((social) => (
+                    <motion.a
+                        key={social.name}
+                        variants={itemVariants}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        href={social.href}
+                        target={social.href.startsWith('mailto') ? undefined : '_blank'}
+                        rel="noopener noreferrer"
+                        download={social.download ? true : undefined}
+                        className="contact-link"
+                    >
+                        <img src={social.icon} alt={social.name} />
+                        <div className="contact-link-info">
+                            <span className="contact-link-name">{social.name}</span>
+                            <span className="contact-link-desc">{social.desc}</span>
+                        </div>
+                    </motion.a>
+                ))}
             </div>
-            <div className="field-row-stacked" style={{ width: '100%' }}>
-                <label htmlFor="subject">Subject:</label>
-                <input id="subject" type="text" style={{ width: '100%' }} />
-            </div>
-            <div className="field-row-stacked" style={{ width: '100%' }}>
-                <label htmlFor="message">Message:</label>
-                <textarea id="message" rows={8} style={{ width: '100%' }}></textarea>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px' }}>
-                <button onClick={() => alert('Sent to the ether!')}>Send</button>
-            </div>
-        </div>
+        </motion.div>
     );
 };
 

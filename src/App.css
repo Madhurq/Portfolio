@@ -1,5 +1,22 @@
-/* Global Resets & Typeface */
 @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap');
+
+body,
+html,
+input,
+textarea,
+select,
+button,
+label,
+legend,
+fieldset,
+.window,
+.title-bar,
+.window-body,
+.tree-view,
+.status-bar,
+.status-bar-field {
+  font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+}
 
 body,
 html {
@@ -8,10 +25,7 @@ html {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  font-family: 'Pixelify Sans', 'Courier New', monospace;
-  font-family: 'MS Sans Serif', 'Segoe UI', sans-serif;
-  background-color: #2b2b2b;
-  /* Dark wall/desk background */
+  background-color: #1a1a2e;
 }
 
 #root {
@@ -19,7 +33,6 @@ html {
   height: 100%;
 }
 
-/* PC Container - Centers the monitor */
 .pc-container {
   display: flex;
   flex-direction: column;
@@ -27,46 +40,45 @@ html {
   justify-content: center;
   height: 100vh;
   width: 100vw;
-  perspective: 1000px;
+  perspective: 1200px;
+  background: radial-gradient(ellipse at center bottom, #2d2d44 0%, #1a1a2e 60%, #0f0f1a 100%);
 }
 
-/* Monitor Frame (Beige Plastic) */
 .monitor-frame {
-  background-color: #dcdcdc;
+  background: linear-gradient(180deg, #e8e0d4 0%, #d4cec4 40%, #c8c0b4 100%);
   padding: 30px 30px 50px 30px;
-  /* Top, Right, Bottom (chin), Left */
   border-radius: 20px;
   box-shadow:
-    inset 0 0 10px rgba(255, 255, 255, 0.5),
-    /* Highlights */
-    inset 0 0 20px rgba(0, 0, 0, 0.1),
-    /* Plastic feel */
-    0 20px 50px rgba(0, 0, 0, 0.5),
-    /* Monitor shadow */
-    0 0 0 4px #c0c0c0;
-  /* Outer ridge */
+    inset 0 2px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.1),
+    inset 2px 0 0 rgba(255, 255, 255, 0.3),
+    inset -2px 0 0 rgba(0, 0, 0, 0.05),
+    0 25px 60px rgba(0, 0, 0, 0.5),
+    0 5px 20px rgba(0, 0, 0, 0.3),
+    0 0 0 3px #b8b0a4;
   position: relative;
   width: 800px;
-  /* Fixed "small PC" size */
   max-width: 90vw;
   aspect-ratio: 4/3;
   display: flex;
   flex-direction: column;
   z-index: 10;
+  transition: box-shadow 0.5s ease;
 }
 
-/* Inner Black Bezel */
 .monitor-bezel {
-  background-color: #111;
-  padding: 15px;
-  border-radius: 4px;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+  background-color: #0a0a0a;
+  padding: 12px;
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 15px rgba(0, 0, 0, 0.9),
+    inset 0 0 3px rgba(0, 0, 0, 1),
+    0 0 1px rgba(255, 255, 255, 0.1);
   flex: 1;
   position: relative;
   overflow: hidden;
 }
 
-/* The actual Desktop screen */
 .desktop {
   background-color: #008080;
   width: 100%;
@@ -75,28 +87,95 @@ html {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  /* Screen curvature/glow effect */
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+  box-shadow:
+    inset 0 0 40px rgba(0, 0, 0, 0.4),
+    inset 0 0 100px rgba(0, 128, 128, 0.15);
+  border-radius: 2px;
 }
 
-/* Branding Text */
+.crt-boot-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99999;
+  pointer-events: none;
+  background: #000;
+}
+
+@keyframes crt-boot-line {
+  0% {
+    clip-path: inset(50% 0 50% 0);
+    opacity: 1;
+    filter: brightness(3) saturate(0);
+  }
+  30% {
+    clip-path: inset(48% 0 48% 0);
+    opacity: 1;
+    filter: brightness(2.5) saturate(0.2);
+  }
+  60% {
+    clip-path: inset(20% 0 20% 0);
+    opacity: 1;
+    filter: brightness(1.5) saturate(0.6);
+  }
+  85% {
+    clip-path: inset(5% 0 5% 0);
+    filter: brightness(1.1) saturate(0.9);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    filter: brightness(1) saturate(1);
+  }
+}
+
+.desktop.booting {
+  animation: crt-boot-line 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes crt-shutdown {
+  0% {
+    clip-path: inset(0 0 0 0);
+    filter: brightness(1);
+  }
+  60% {
+    clip-path: inset(45% 5% 45% 5%);
+    filter: brightness(2);
+  }
+  80% {
+    clip-path: inset(49% 10% 49% 10%);
+    filter: brightness(3);
+  }
+  100% {
+    clip-path: inset(50% 50% 50% 50%);
+    filter: brightness(4);
+    opacity: 0;
+  }
+}
+
+.desktop.shutting-down {
+  animation: crt-shutdown 0.6s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
 .monitor-brand {
   position: absolute;
-  bottom: 15px;
+  bottom: 14px;
   left: 50%;
   transform: translateX(-50%);
   font-family: 'Pixelify Sans', monospace;
   font-weight: bold;
-  font-size: 1.2rem;
-  color: #888;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-  letter-spacing: 2px;
+  font-size: 1.1rem;
+  color: #8a8478;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+  letter-spacing: 3px;
+  user-select: none;
 }
 
-/* Power Button & LED */
 .monitor-controls {
   position: absolute;
-  bottom: 15px;
+  bottom: 14px;
   right: 30px;
   display: flex;
   gap: 10px;
@@ -104,15 +183,28 @@ html {
 }
 
 .power-btn {
-  width: 20px;
-  height: 20px;
-  background: #333;
+  width: 22px;
+  height: 22px;
+  background: linear-gradient(180deg, #444 0%, #2a2a2a 100%);
   border-radius: 50%;
   box-shadow:
-    inset 0 2px 5px rgba(0, 0, 0, 0.8),
-    0 1px 0 rgba(255, 255, 255, 0.5);
+    inset 0 2px 4px rgba(0, 0, 0, 0.8),
+    0 1px 0 rgba(255, 255, 255, 0.3),
+    0 0 4px rgba(0, 0, 0, 0.3);
   position: relative;
   cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.15s ease;
+}
+
+.power-btn:hover {
+  transform: scale(1.05);
+}
+
+.power-btn:active {
+  transform: scale(0.95);
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.9),
+    0 0 2px rgba(0, 0, 0, 0.3);
 }
 
 .power-btn::after {
@@ -124,12 +216,16 @@ html {
   width: 8px;
   height: 8px;
   background-color: #0f0;
-  /* Green LED */
   border-radius: 50%;
-  box-shadow: 0 0 5px #0f0;
+  box-shadow: 0 0 6px #0f0, 0 0 12px rgba(0, 255, 0, 0.3);
+  transition: all 0.3s ease;
 }
 
-/* Monitor Stand */
+.power-btn.off::after {
+  background-color: #333;
+  box-shadow: none;
+}
+
 .monitor-stand {
   position: relative;
   display: flex;
@@ -137,31 +233,27 @@ html {
   align-items: center;
   z-index: 1;
   margin-top: -10px;
-  /* Overlap slightly */
 }
 
 .stand-connect {
-  width: 150px;
-  height: 60px;
-  background-color: #d0d0d0;
+  width: 140px;
+  height: 55px;
+  background: linear-gradient(90deg, #c4bcb0 0%, #d8d0c4 50%, #c4bcb0 100%);
   box-shadow:
-    inset 0 0 10px rgba(0, 0, 0, 0.2),
-    inset 5px 0 10px rgba(255, 255, 255, 0.4);
+    inset 3px 0 8px rgba(0, 0, 0, 0.15),
+    inset -3px 0 8px rgba(0, 0, 0, 0.15);
 }
 
 .stand-base {
-  width: 300px;
-  height: 40px;
-  background-color: #dcdcdc;
-  border-radius: 10px 10px 40% 40%;
+  width: 280px;
+  height: 38px;
+  background: linear-gradient(180deg, #dcd4c8 0%, #c8c0b4 100%);
+  border-radius: 8px 8px 40% 40%;
   box-shadow:
-    0 10px 20px rgba(0, 0, 0, 0.4),
-    inset 0 2px 5px rgba(255, 255, 255, 0.5);
+    0 10px 25px rgba(0, 0, 0, 0.35),
+    inset 0 2px 4px rgba(255, 255, 255, 0.4);
 }
 
-/* Existing Styles Restored Below */
-
-/* Desktop Icon Grid */
 .desktop-icons {
   position: relative;
   width: 100%;
@@ -170,38 +262,191 @@ html {
   z-index: 5;
 }
 
-/* CRT Overlay Effect */
+.desktop-icon {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-radius: 4px;
+  padding: 4px;
+  user-select: none;
+}
+
+.desktop-icon:hover {
+  transform: scale(1.08);
+}
+
+.desktop-icon:hover img {
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.4));
+}
+
+.desktop-icon.selected {
+  background: rgba(0, 0, 128, 0.4);
+  outline: 1px dotted rgba(255, 255, 255, 0.7);
+}
+
+.desktop-icon:active {
+  transform: scale(0.95);
+}
+
 .crt-overlay {
-  content: " ";
   display: block;
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%,
-      rgba(0, 0, 0, 0.25) 50%);
-  background-size: 100% 4px;
-  /* Scanline spacing */
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
+  background-size: 100% 3px;
   z-index: 9999;
   pointer-events: none;
-  /* Click through */
-  opacity: 0.3;
+  opacity: 0.25;
+  animation: crt-scanline-scroll 8s linear infinite;
 }
 
-/* Helper for content */
+@keyframes crt-scanline-scroll {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100%; }
+}
+
+.crt-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  animation: crt-flicker 0.15s infinite;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes crt-flicker {
+  0% { opacity: 0; }
+  5% { opacity: 0.02; background: rgba(255, 255, 255, 0.01); }
+  10% { opacity: 0; }
+  92% { opacity: 0; }
+  93% { opacity: 0.03; background: rgba(255, 255, 255, 0.02); }
+  94% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+.desktop::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at center, transparent 65%, rgba(0, 0, 0, 0.3) 100%);
+  pointer-events: none;
+  z-index: 9998;
+}
+
 .window-content-area {
   padding: 1rem;
   font-size: 14px;
 }
 
-/* Responsive adjustments for really "small" screens */
+.taskbar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(180deg, #d4d0c8 0%, #c0c0c0 30%, #c0c0c0 70%, #a8a8a0 100%);
+  border-top: 2px solid #e8e4dc;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  z-index: 10000;
+}
+
+.taskbar button {
+  transition: all 0.15s ease;
+  border-radius: 0;
+  font-size: 12px;
+}
+
+.taskbar button:hover {
+  filter: brightness(1.05);
+}
+
+.taskbar button:active,
+.taskbar button.active {
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.start-menu-item {
+  text-align: left;
+  border: none;
+  padding: 6px 20px 6px 10px;
+  width: 100%;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  transition: background-color 0.1s ease, color 0.1s ease;
+}
+
+.start-menu-item:hover {
+  background-color: #000080 !important;
+  color: white !important;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border: 2px solid #808080;
+  box-shadow: inset -1px -1px #fff, inset 1px 1px #0a0a0a;
+  background: white;
+  cursor: pointer;
+  text-decoration: none;
+  color: #000;
+  font-size: 13px;
+  transition: background-color 0.15s ease;
+}
+
+.contact-link:hover {
+  background-color: #000080;
+  color: white;
+}
+
+.contact-link:hover .contact-link-desc {
+  color: #ccc;
+}
+
+.contact-link img,
+.contact-link svg {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.contact-link-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.contact-link-name {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.contact-link-desc {
+  font-size: 11px;
+  color: #666;
+  transition: color 0.15s ease;
+}
+
 @media (max-width: 850px) {
   .monitor-frame {
     width: 95vw;
     height: auto;
     aspect-ratio: auto;
-    /* Allow flexible height on mobile */
     min-height: 60vh;
   }
 }

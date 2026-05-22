@@ -8,9 +8,8 @@ const DraggableDesktopIcon = ({ label, icon, onDoubleClick, defaultPosition }) =
     return (
         <Draggable
             nodeRef={nodeRef}
-            bounds="parent" // Keeps icon within the desktop
-            defaultPosition={defaultPosition} // Optional: {x: 0, y: 0}
-        // grid={[10, 10]} // Optional: Snap to grid if we want that retro feel
+            bounds="parent"
+            defaultPosition={defaultPosition}
         >
             <div ref={nodeRef} style={{ position: 'absolute', width: 'fit-content' }}>
                 <DesktopIcon
